@@ -3,11 +3,14 @@ const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 
+// Import the two parts of a GraphQL schema
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// setting up Apollo Server to to use GraphQL queries and mutations to fetch and modify data
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -26,6 +29,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+// Create a new instance of an Apollo server
 const startApolloServer = async () => {
   await server.start();
   server.applyMiddleware({ app });
@@ -38,4 +42,5 @@ const startApolloServer = async () => {
   });
 };
 
+// Call the async function to start the server
 startApolloServer();
