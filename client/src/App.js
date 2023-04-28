@@ -32,6 +32,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// Apollo Provider so that requests can communicate with an Apollo Server.
 function App() {
   return (
     <ApolloProvider client={client}>
